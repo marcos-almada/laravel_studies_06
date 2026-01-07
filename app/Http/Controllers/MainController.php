@@ -33,9 +33,39 @@ class MainController extends Controller
         // $results = Product::limit(3)->get()->toArray();  // SELECT * FROM products LIMIT 3
 
         // buscar um produto pelo id
-        $results = Product::find(5)->toArray();  // SELECT * FROM products WHERE id = 5 LIMIT 1
+        // $results = Product::find(5)->toArray();  // SELECT * FROM products WHERE id = 5 LIMIT 1
 
-        $this->showData($results);
+        // --- aula 161 -- consultas com condições WHERE ---
+
+        // $results = Product::where('price', '>', 50)
+        //                         ->get()
+        //                         ->toArray();
+
+        // buscar apenas o primeiro produto que custa mais de 50
+        // $results = Product::where('price', '>', 50)
+        //                 ->first()
+        //                 ->toArray();
+
+        // buscar apenas o primeiro elemento se ele existir, caso contrario retorna um array vazio
+        // $results = Product::where('price', '>', 170)
+        //                 ->firstOr( function () {
+        //                     return [];
+        //                 });
+
+        // buscar dados de um produto e decide alterar um valor
+        $product = Product::find(8);
+        echo $product->price; // valor original que esta na BD
+        $product->price = 199.99; // altera o valor, define um novo preço apenas na instancia do objeto
+        echo "<br>";
+        echo $product->price; // valor alterado
+
+        // caso queira voltar ao valor original
+        $product->refresh(); // volta a ler o valor original da BD
+        echo "<br>";
+        echo $product->price; // valor original que esta na BD
+
+
+        // $this->showData($results);
 
     }
 
