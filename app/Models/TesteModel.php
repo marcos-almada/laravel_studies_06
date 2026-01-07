@@ -20,4 +20,8 @@ class TesteModel extends Model
 
     // se quiser alterar a data do created_at e updated_at
     protected $dateFormat = 'Y-m-d H:i:s';
+
+    // colunas created_at e updated_at personalizadas
+    const CREATED_AT = 'data_criacao';
+    const UPDATED_AT = 'data_atualizacao';
 }
