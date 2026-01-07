@@ -27,27 +27,48 @@ class MainController extends Controller
         // );
 
 
-        Product::insert([ // inserir varios produtos de uma vez, nao disponibiliza os timestamps created_at e updated_at
-            [
-                'product_name' => 'Produto 006',
-                'price' => 139.99,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+        // Product::insert([ // inserir varios produtos de uma vez, nao disponibiliza os timestamps created_at e updated_at
+        //     [
+        //         'product_name' => 'Produto 006',
+        //         'price' => 139.99,
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now()
 
+        //     ],
+        //     [
+        //         'product_name' => 'Produto 004',
+        //         'price' => 459.99,
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now()
+        //     ],
+        //     [
+        //         'product_name' => 'Produto 005',
+        //         'price' => 291.99,
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now()
+        //     ]
+        // ]);]
+
+        // --- Update ---
+        // nesta opção o eloquent se encarrega de atualizar o campo updated_at automaticamente
+        // $product = Product::find(10); // SELECT * FROM products WHERE id = 10
+        // $product->product_name = "Produto 010 - Nome Alterado";
+        // $product->price = 299.99;
+        // $product->save(); // UPDATE products SET product_name = 'Produto 010 - Nome Alterado', price = 299.99 WHERE id = 10
+
+        // podemos lterar o preco de todos os produtos de forma massiva
+        // Product::where('price', '<', 30)
+        //             ->update(['price' => 91.99]); // UPDATE products SET price = 99.99 WHERE price < 100
+
+        // update OR create (atualiza se encontrar o registo, caso contrario cria um novo)
+        Product::updateOrCreate(
+            [
+                'product_name' => 'Açai'
             ],
             [
-                'product_name' => 'Produto 004',
-                'price' => 459.99,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'product_name' => 'Produto 005',
-                'price' => 291.99,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'price' => 19.99
             ]
-        ]);
+        );
 
     }
 
