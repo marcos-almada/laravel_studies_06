@@ -53,17 +53,57 @@ class MainController extends Controller
         //                 });
 
         // buscar dados de um produto e decide alterar um valor
-        $product = Product::find(8);
-        echo $product->price; // valor original que esta na BD
-        $product->price = 199.99; // altera o valor, define um novo preço apenas na instancia do objeto
-        echo "<br>";
-        echo $product->price; // valor alterado
+        // $product = Product::find(8);
+        // echo $product->price; // valor original que esta na BD
+        // $product->price = 199.99; // altera o valor, define um novo preço apenas na instancia do objeto
+        // echo "<br>";
+        // echo $product->price; // valor alterado
 
-        // caso queira voltar ao valor original
-        $product->refresh(); // volta a ler o valor original da BD
-        echo "<br>";
-        echo $product->price; // valor original que esta na BD
+        // // caso queira voltar ao valor original
+        // $product->refresh(); // volta a ler o valor original da BD
+        // echo "<br>";
+        // echo $product->price; // valor original que esta na BD
+        // // fim aula 161
 
+        // aula 162 - exibicao de dados
+
+        // $product = Product::find(8);
+        // echo "ID: " . $product->id . "<br>";
+        // echo "Nome: " . $product->product_name . "<br><hr>";
+
+
+        // $product = Product::where('price', '>', 50)->first();
+        // echo  $product->product_name . " Tem um precço de " . $product->price . "<br>";
+
+        // $product = Product::findOr(1000, function () {
+        //     echo "Produto nao encontrado!";
+        // });
+
+        // if ($product) {
+        //    echo  $product->product_name . " Tem um preço de " . $product->price . "<br>";
+        // }
+
+
+        // parar a execução do codigo caso nao seja encontrado o produto
+        // $product = Product::findOrFail(10);
+        // echo  $product->product_name . " Tem um preço de " . $product->price . "<br>";
+
+        // buscar agregados - contagem de produtos
+        $total_products = Product::count();
+        $product_max_price = Product::max('price');
+        $product_min_price = Product::min('price');
+        $product_avg_price = Product::avg('price');
+        $product_sum_price = Product::sum('price');
+
+        $results = [
+            'total_products' => $total_products,
+            'product_max_price' => $product_max_price,
+            'product_min_price' => $product_min_price,
+            'product_avg_price' => $product_avg_price,
+            'product_sum_price' => $product_sum_price,
+        ];
+
+        $this->showData($results);
 
         // $this->showData($results);
 
