@@ -226,6 +226,20 @@ class MainController extends Controller
         $results = $Clients1->diff($Clients2)->toArray();
         $this->showData($results);
 
+        // INTERSECT
+        $Clients1 = Client::take(5)->get();
+        $Clients2 = Client::where('id', '>', 3)->take(5)->get();
+        $results = $Clients1->intersect($Clients2)->toArray();
+        $this->showData($results);
+
+        echo "<hr>";
+
+        // MAKE HIDDEN
+        $Clients = Client::take(5)->get();
+        $Clients->makeHidden(['id', 'created_at', 'updated_at', 'deleted_at']);
+        $this->showData($Clients->toArray());
+
+
     }
 
 
