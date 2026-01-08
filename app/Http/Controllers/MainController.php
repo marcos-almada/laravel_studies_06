@@ -52,6 +52,29 @@ class MainController extends Controller
 
     }
 
+    public function OneToMany()
+    {
+        echo "<h2>Relação One to Many (Um para Muitos)</h2>";
+        // Buscar o ID e o nome do cliente e todos os seus telefones
+        // $clients1 = client::find(10);
+        // $phones = $clients1->phones;
+        // echo "Cliente: " . $clients1->client_name . "<br>";
+        // echo "Telefones: <br>";
+        // foreach ($phones as $phone) {
+        //     echo "- " . $phone->phone_number . "<br>";
+        //}
+
+        // Outra forma usando o metodo with
+        $clients2 = client::with('phones')->find(11);
+        echo "Cliente: " . $clients2->client_name . "<br>";
+        echo "Telefones: <br>";
+        foreach ($clients2->phones as $phone) {
+            echo "- " . $phone->phone_number . "<br>";
+        }
+
+
+    }
+
     private function showData($data)
     {
         echo "<pre>";
