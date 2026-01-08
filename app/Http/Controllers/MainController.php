@@ -163,6 +163,34 @@ class MainController extends Controller
 
     }
 
+    public function SameResults()
+    {
+        echo "<h2>Obtendo os mesmos resultados de duas formas diferentes</h2>";
+
+        // vamos buscar os mesmos resultados mas sem usar as relações do Eloquent ORM
+        // buscar todos um cliente e todos os seus telefones
+        // $client1 = Client::find(10);
+        // $phones = phone::where('client_id', $client1->id)->get();
+        // echo "Cliente: " . $client1->client_name . "<br>";
+        // echo "Telefones: <br>";
+        // foreach ($phones as $phone) {
+        //     echo "- " . $phone->phone_number . "<br>";
+        // }
+
+        // vamos buscar todos os produtos que um cliente comprou
+        $client2 = Client::find(2);
+        $products = Product::join('orders', 'products.id', '=', 'orders.product_id')
+            ->where('orders.client_id', $client2->id)
+            ->get();
+        echo "Cliente: " . $client2->client_name . "<br>";
+        echo "Produtos comprados: <br>";
+        foreach ($products as $index => $product) {
+            $index ++;
+            echo $index . "- " . $product->product_name . ":" . $product->price . "<br>";
+        }
+
+    }
+
     private function showData($data)
     {
         echo "<pre>";
