@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -14,4 +15,11 @@ class Product extends Model
     // habilitar o uso de soft deletes (exclusão lógica) na tabela products
     // se a tabela tiver a coluna deleted_at
     use SoftDeletes;
+
+        // many to many
+    public function clients(): BelongsToMany
+    {
+        // relação muitos para muitos
+        return $this->belongsToMany(Client::class, 'orders', 'product_id', 'client_id');
+    }
 }

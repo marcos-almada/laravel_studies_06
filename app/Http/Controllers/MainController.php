@@ -96,6 +96,32 @@ class MainController extends Controller
 
     }
 
+    public function ManyToMany()
+    {
+        //buscar 1 cliente e todos os produtos comprados por ele
+        // echo "<h2>Relação Many to Many (Muitos para Muitos)</h2>";
+        // $client1 = client::find(1);
+        // $products = $client1->products;
+        // echo "Cliente: " . $client1->client_name . "<br>";
+        // echo "Produtos comprados: <br>";
+        // foreach ($products as $index => $product) {
+        //     $index ++;
+        //     echo $index . "- " . $product->product_name . "<br>";
+        // }
+
+        // buscar 1 produto e todos os clientes que compraram esse produto
+        echo "<h2>Relação Many to Many (Muitos para Muitos)</h2>";
+        $product1 = Product::find(10);
+        $clients = $product1->clients;
+        echo "Produto: " . $product1->product_name . "<br>";
+        echo "Clientes que compraram esse produto: <br>";
+        foreach ($clients as $index => $client) {
+            $index ++;
+            echo $index . "- " . $client->client_name . "<br>";
+        }
+
+    }
+
     private function showData($data)
     {
         echo "<pre>";
