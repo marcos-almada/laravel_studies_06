@@ -189,7 +189,45 @@ class MainController extends Controller
             echo $index . "- " . $product->product_name . ":" . $product->price . "<br>";
         }
 
+        // retornar os dados para o frontend (view)
+        // return view('same_results', [
+        //     'client' => $client2,
+        //     'products' => $this->ArrayOfObject($products->toArray())
+        // ]);
+
     }
+
+    public function Collections()
+    {
+        //
+        // $client = Client::take(5)->get();
+        // foreach ($client as $cl) {
+        //     echo "Cliente: " . $cl->client_name . "<br>";
+        // }
+
+        //APPEND
+        $client = Client::take(5)->get();
+        $client->each->append(['client_name_uppercase', 'email_domain']);
+
+        foreach ($client as $cl) {
+            echo "Cliente: " . $cl->client_name . "<br>";
+            echo "Cliente: " . $cl->client_name_uppercase = strtoupper($cl->client_name) . "<br>";
+            echo "Email Domain: " . $cl->email_domain = explode('@', $cl->email)[1] . "<br><hr>";
+        }
+
+        // CONTAINS
+        $Clients = Client::take(10)->get();
+        $results = $Clients->contains('client_name', 'Susana Ines Borgs');
+        var_dump($results);
+
+        // DIFF
+        $Clients1 = Client::take(5)->get();
+        $Clients2 = Client::take(3)->get();
+        $results = $Clients1->diff($Clients2)->toArray();
+        $this->showData($results);
+
+    }
+
 
     private function showData($data)
     {
