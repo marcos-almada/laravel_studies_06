@@ -122,6 +122,47 @@ class MainController extends Controller
 
     }
 
+    public function RunningQueries()
+    {
+        // // vamos buscar um cliente e todos os seus telefones, mas so queremos os telefones com o numero 8
+        // $client1 = Client::find(1);
+        // $phones = $client1->phones()->where('phone_number', 'like', '8%')->get();
+        // echo "Cliente: " . $client1->client_name . "<br>";
+        // echo "Telefones que começam com 8: <br>";
+        // foreach ($phones as $phone) {
+        //     echo "- " . $phone->phone_number . "<br>";
+        // }
+
+        // buscar todos os produtos que um cliente comprou com preço maior que 50
+        // $client2 = Client::find(1);
+        // $products = $client2->products()->where('price', '>', 50)->get();
+        // echo "Cliente: " . $client2->client_name . "<br>";
+        // echo "Produtos com preço maior que 50: <br>";
+        // foreach ($products as $index => $product) {
+        //     $index ++;
+        //     echo $index . "- " . $product->product_name . ":" . $product->price . "<br>";
+        // }
+
+
+        // vao aparecer produtos repetidos se o cliente comprou mais de uma vez o mesmo produto
+        // para evitar isso, usamos o metodo distinct()
+        // ordenar os produtos pelo nome
+        $client3 = Client::find(1);
+        $products = $client3->products()
+            ->where('price', '>', 50)
+            ->distinct()
+            ->orderBy('product_name')
+            ->get();
+        echo "Cliente: " . $client3->client_name . "<br>";
+        echo "Produtos distintos com preço maior que 50, ordenados pelo nome: <br>";
+        foreach ($products as $index => $product) {
+            $index ++;
+            echo $index . "- " . $product->product_name . ":" . $product->price . "<br>";
+        }
+
+
+    }
+
     private function showData($data)
     {
         echo "<pre>";
