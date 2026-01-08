@@ -6,6 +6,7 @@ use App\Models\client;
 use App\Models\phone;
 use App\Models\Product;
 use Carbon\Carbon;
+use COM;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -238,6 +239,47 @@ class MainController extends Controller
         $Clients = Client::take(5)->get();
         $Clients->makeHidden(['id', 'created_at', 'updated_at', 'deleted_at']);
         $this->showData($Clients->toArray());
+
+
+    }
+
+    public function Serialization()
+    {
+        // $clients = Client::take(10)->get();
+        // $clients = $clients->toArray();
+        // $this->showData($clients);
+
+        // $clients = Client::take(10)->get()->toArray();
+        // $this->showData($clients);
+
+        // $client = Client::find(1)->toArray();
+        // $this->showData($client);
+
+        // JSON
+        // $clients = Client::take(10)->get();
+        // $clientsJson = $clients->toJson();
+        // echo $clientsJson;
+
+        // $clients = Client::find(10)->toJson();
+        // echo $clients;
+
+        // $clients = Client::take(10)->get()->toJson(JSON_PRETTY_PRINT);
+        // echo "<pre>";
+        // echo $clients;
+
+        // $Clients = Client::take(10)
+        //     ->get()
+        //     ->setHidden(['id', 'active','created_at', 'updated_at', 'deleted_at'])
+        //     ->toJson(JSON_PRETTY_PRINT);
+        // $this->showData($Clients);
+
+        $Clients = Client::take(10)
+            ->get()
+            ->setVisible(['client_name', 'email'])
+            ->toJson(JSON_PRETTY_PRINT);
+        $this->showData($Clients);
+
+
 
 
     }
