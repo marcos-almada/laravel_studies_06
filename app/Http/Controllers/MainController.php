@@ -61,14 +61,41 @@ class MainController extends Controller
         //             ->update(['price' => 91.99]); // UPDATE products SET price = 99.99 WHERE price < 100
 
         // update OR create (atualiza se encontrar o registo, caso contrario cria um novo)
-        Product::updateOrCreate(
-            [
-                'product_name' => 'Açai'
-            ],
-            [
-                'price' => 19.99
-            ]
-        );
+        // Product::updateOrCreate(
+        //     [
+        //         'product_name' => 'Açai'
+        //     ],
+        //     [
+        //         'price' => 19.99
+        //     ]
+        // );
+
+        // --- Delete  - Hard Delete e Soft Delete ---
+        // ------------------------------------
+        //             HARD DELETE
+        // ----------------------------------
+        // $product = Product::find(15);;
+        // $product->delete(); // hard delete - remove o registo da BD
+
+        // Se quiser limpar todos os registos da tabela
+        // Product::truncate(); // hard delete - remove todos os registos da tabela
+
+        //Product::destroy(16); // hard delete - remove o registo da BD pelo id
+       // Product::destroy([17, 18, 19]); // hard delete - remove varios registos da BD pelos ids
+
+       //Product::where('price', '>=', 70)->delete(); // remove todos os produtos com preço maior ou igual a 70
+
+
+       // ------------------------------------
+        //      SOFT DELETE - (tem que estar habilitado no model - use SoftDeletes)
+        // ------------------------------------
+
+        // $product = Product::find(24);
+        // $product->delete(); // soft delete - marca o registo como eliminado (preenche o campo deleted_at com a data/hora atual)
+
+        // recuperar produtos que foram soft deleted
+        $product = Product::withTrashed()->find(24);
+        $product->restore(); // restaura o registo (define o campo deleted_at como NULL)
 
     }
 
