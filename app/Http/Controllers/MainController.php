@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\client;
+use App\Models\phone;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -65,13 +66,33 @@ class MainController extends Controller
         //}
 
         // Outra forma usando o metodo with
-        $clients2 = client::with('phones')->find(11);
+        $clients2 = client::with('phones')->find(10);
         echo "Cliente: " . $clients2->client_name . "<br>";
         echo "Telefones: <br>";
         foreach ($clients2->phones as $phone) {
             echo "- " . $phone->phone_number . "<br>";
         }
 
+
+
+
+    }
+
+    public function BelongsTo()
+    {
+        //
+        echo "<h2>Relação Belongs To (Pertence a)</h2>";
+        // Metodo para pegar no telefone e descobrir a quem ele pertence
+        $phone1 = phone::find(10);
+        $client = $phone1->client;
+        echo "Telefone: " . $phone1->phone_number . "<br>";
+        echo "Pertence ao cliente: " . $client->client_name . "<br>";
+
+        // Outra forma usando o metodo with
+        $phone2 = phone::with('client')->find(11);
+        echo "<br>";
+        echo "Telefone: " . $phone2->phone_number . "<br>";
+        echo "Pertence ao cliente: " . $phone2->client->client_name . "<br>";
 
     }
 
